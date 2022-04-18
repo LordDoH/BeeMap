@@ -1,19 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Logo from '../assets/images/logo.png';
 import cssVariables from '../styles/variables';
 
 function Navbar() {
+  const router = useRouter();
+
   return (
     <>
       <header>
         <nav>
-          <Link href="/">
-            <a>
-              <Image src={Logo} alt="logo" width="100px" height="48px" />
-            </a>
-          </Link>
+          <div>
+            <Image
+              src={Logo}
+              alt="logo"
+              width="100px"
+              height="48px"
+              onClick={() => router.push('/')}
+            />
+          </div>
           <ul>
             <li>
               <Link href="#">
@@ -41,6 +48,9 @@ function Navbar() {
             justify-content: space-between;
             height: 70px;
             border-bottom: 1px solid #d9d9d9;
+          }
+          nav > div {
+            cursor: pointer;
           }
           ul {
             display: flex;
