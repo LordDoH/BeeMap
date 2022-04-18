@@ -44,6 +44,7 @@ export default function Home() {
             height: calc(100vh - 70px);
             min-height: 600px;
             max-height: 900px;
+            overflow-x: hidden;
           }
           div.leftCol {
             display: flex;

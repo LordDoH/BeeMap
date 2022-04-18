@@ -21,7 +21,7 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href="#">
+              <Link href="/login">
                 <a className="login">Ingresar</a>
               </Link>
             </li>
