@@ -4,10 +4,14 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Logo from '../assets/images/logo.png';
 import cssVariables from '../styles/variables';
+import useAuthUser from '../hooks/useAuthUser';
+import { useAuth } from '../context/AuthUserContext';
 
 function Navbar() {
   const router = useRouter();
+  useAuthUser();
 
+  const { authUser } = useAuth();
   return (
     <>
       <header>
@@ -27,11 +31,26 @@ function Navbar() {
                 <a>Servicios</a>
               </Link>
             </li>
-            <li>
-              <Link href="/login">
-                <a className="login">Ingresar</a>
-              </Link>
-            </li>
+            {!authUser ? (
+              <li>
+                <Link href="/login">
+                  <a className="login">Ingresar</a>
+                </Link>
+              </li>
+            ) : (
+              <>
+                <li>
+                  <Link href="/dashboard">
+                    <a>Dashboard</a>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/logout">
+                    <a className="logout">Cerrar Sesión</a>
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </nav>
       </header>
@@ -57,7 +76,7 @@ function Navbar() {
             justify-content: space-around;
             text-decoration: none;
             list-style: none;
-            width: 300px;
+            width: 450px;
             height: 100%;
           }
           li {
@@ -75,6 +94,9 @@ function Navbar() {
             font-weight: 800;
           }
           a.login {
+            background-color: ${cssVariables.primaryColor};
+          }
+          a.logout {
             background-color: ${cssVariables.primaryColor};
           }
           li a:hover {

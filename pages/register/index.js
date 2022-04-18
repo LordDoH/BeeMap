@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../../context/AuthUserContext';
@@ -12,25 +11,28 @@ import cssVariables from '../../styles/variables';
 function index() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
 
   const { push } = useRouter();
 
   const [error, setError] = useState(null);
 
-  const { signIn } = useAuth();
+  const { createUser } = useAuth();
 
   useAuthUser();
 
-  const login = (e) => {
+  const register = (e) => {
     setError(null);
-    signIn(email, password)
-      .then(() => {
-        console.log('Success. The user is logged in firebase');
-        push('/dashboard');
-      })
-      .catch((er) => {
-        setError(er.message);
-      });
+    if (password === password2)
+      createUser(email, password)
+        .then(() => {
+          console.log('Success. The user is created in firebase');
+          push('/');
+        })
+        .catch((er) => {
+          setError(er.message);
+        });
+    else setError('Password do not match');
     e.preventDefault();
   };
 
@@ -47,7 +49,7 @@ function index() {
               onClick={() => push('/')}
             />
           </div>
-          <h2>Ingresa a tu espacio de trabajo</h2>
+          <h2>Registrate y obten nuestros productos</h2>
           <div>
             <form>
               <div>
@@ -74,24 +76,23 @@ function index() {
                     }}
                   />
                 </label>
+                <label htmlFor="login-password2" title="password2">
+                  <span>Repetir Contraseña</span>
+                  <input
+                    type="password"
+                    id="login-password2"
+                    value={password2}
+                    onChange={(e) => {
+                      setPassword2(e.target.value);
+                    }}
+                  />
+                </label>
               </div>
-              <button type="submit" onClick={login}>
-                Ingresar
+              <button type="submit" onClick={register}>
+                Registrarse
               </button>
             </form>
-            <span>
-              ¿Olvidaste tu Contraseña?. Haz{' '}
-              <Link href="/">
-                <a>click aquí</a>
-              </Link>{' '}
-              para recuperarla
-            </span>
-            <span>
-              ¿No estas registrado?. Haz{' '}
-              <Link href="/register">
-                <a>click aquí</a>
-              </Link>
-            </span>
+            <span>¿Listo para registrarte? solo has click en el boton. </span>
           </div>
         </section>
       </main>

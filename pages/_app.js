@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import Head from 'next/head';
+import { AuthUserProvider } from '../context/AuthUserContext';
 import Footer from '../components/Footer';
 import '../styles/globals.css';
 
@@ -11,8 +12,10 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content="SpyBee Technical Assessment" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Component {...pageProps} />
-      <Footer />
+      <AuthUserProvider>
+        <Component {...pageProps} />
+        <Footer />
+      </AuthUserProvider>
       <style jsx global>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:wght@100&display=swap');
