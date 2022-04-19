@@ -1,22 +1,74 @@
-import { useState } from 'react';
 import { ImSearch } from 'react-icons/im';
+import { useEffect } from 'react';
 import cssVariables from '../styles/variables';
 
-function Search({ placeholder }) {
-  const [searchInput, setSearchInput] = useState('');
+function Search({
+  placeholder,
+  search,
+  setSearch,
+  setState,
+  projects,
+  last,
+  setMapResults,
+  onClick,
+}) {
+  let filteredProj;
+
+  const findResults = async (e) => {
+    e.preventDefault();
+    setState(filteredProj);
+  };
+
+  const onChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  useEffect(() => {
+    filteredProj = projects?.filter((proj) => {
+      if (proj.name?.toLowerCase().includes(search?.toLowerCase().trim())) {
+        return proj.name?.toLowerCase().includes(search?.toLowerCase().trim());
+      }
+      if (
+        proj.description?.toLowerCase().includes(search?.toLowerCase().trim())
+      ) {
+        return proj.description
+          ?.toLowerCase()
+          .includes(search?.toLowerCase().trim());
+      }
+      if (proj.client?.toLowerCase().includes(search?.toLowerCase().trim())) {
+        return proj.client
+          ?.toLowerCase()
+          .includes(search?.toLowerCase().trim());
+      }
+      if (proj.location?.toLowerCase().includes(search?.toLowerCase().trim())) {
+        return proj.location
+          ?.toLowerCase()
+          .includes(search?.toLowerCase().trim());
+      }
+      return null;
+    });
+    if (projects && search) {
+      setState(filteredProj);
+      setMapResults(filteredProj);
+    }
+    if (!search) {
+      setState(last);
+    }
+  }, [search]);
 
   return (
     <>
-      <form>
+      <form onSubmit={findResults}>
         <input
           type="text"
           placeholder={placeholder || 'Ingresa tu busqueda'}
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
+          value={search}
+          onChange={onChange}
+          onClick={onClick}
         />
-        <div>
+        <button type="submit">
           <ImSearch />
-        </div>
+        </button>
       </form>
       <style jsx>{`
         form {
@@ -30,7 +82,11 @@ function Search({ placeholder }) {
           width: 30%;
           margin: 20px auto;
         }
-        form > div {
+        form:hover {
+          border: 2px solid ${cssVariables.primaryColor};
+          transition: ease 0.5s;
+        }
+        form > button {
           background-color: ${cssVariables.primaryColor};
           color: ${cssVariables.primaryColorLight};
           display: flex;
@@ -40,7 +96,9 @@ function Search({ placeholder }) {
           width: 2.5rem;
           height: 2.5rem;
           border-radius: 1.25rem;
+          border: none;
           margin: auto;
+          cursor: pointer;
         }
         input {
           padding: 10px;

@@ -5,7 +5,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import auth from './client';
+import { auth } from './client';
 
 const formatAuthUser = (user) => ({
   uid: user.uid,

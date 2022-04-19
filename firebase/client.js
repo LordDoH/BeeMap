@@ -1,18 +1,21 @@
 import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCQobE37PqOfvVAV_qZH_pklpqJiOcBCs4',
-  authDomain: 'beemap-b28fc.firebaseapp.com',
-  projectId: 'beemap-b28fc',
-  storageBucket: 'beemap-b28fc.appspot.com',
-  messagingSenderId: '1033569038785',
-  appId: '1:1033569038785:web:6a42c3786d7f0b0b1ebf40',
-  measurementId: 'G-WDMDVPKZ8Z',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDERID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
 };
 
 const app = initializeApp(firebaseConfig);
 
+const db = getFirestore(app);
+
 const auth = getAuth(app);
 
-export default auth;
+export { auth, db };

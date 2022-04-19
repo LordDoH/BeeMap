@@ -25,7 +25,7 @@ function index() {
     setError(null);
     signIn(email, password)
       .then(() => {
-        console.log('Success. The user is logged in firebase');
+        // console.log('Success. The user is logged in firebase');
         push('/dashboard');
       })
       .catch((er) => {
@@ -189,6 +189,7 @@ function index() {
           align-items: center;
           border: none;
           width: 100%;
+          cursor: pointer;
         }
         span a {
           color: ${cssVariables.primaryColor};

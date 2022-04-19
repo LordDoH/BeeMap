@@ -26,7 +26,7 @@ function index() {
     if (password === password2)
       createUser(email, password)
         .then(() => {
-          console.log('Success. The user is created in firebase');
+          // console.log('Success. The user is created in firebase');
           push('/');
         })
         .catch((er) => {
@@ -190,6 +190,7 @@ function index() {
           align-items: center;
           border: none;
           width: 100%;
+          cursor: pointer;
         }
         span a {
           color: ${cssVariables.primaryColor};

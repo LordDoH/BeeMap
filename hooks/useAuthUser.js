@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import auth from '../firebase/client';
+import { auth } from '../firebase/client';
 
 // HOOK FOR VALIDATE IF USER IS LOGGED
 
