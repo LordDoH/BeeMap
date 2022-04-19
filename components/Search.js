@@ -17,6 +17,7 @@ function Search({
   const findResults = async (e) => {
     e.preventDefault();
     setState(filteredProj);
+    setSearch(search.concat(' '));
   };
 
   const onChange = (e) => {
